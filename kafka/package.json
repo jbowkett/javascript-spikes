@@ -1,0 +1,11 @@
+{
+  "name": "kafka-spike",
+  "version": "1.0.0",
+  "dependencies": {
+    "kafkajs": "^1.12.0",
+    "uuid": "^8.2.0"
+  },
+  "scripts": {
+    "producer": "node src/producer.js"
+  }
+}
