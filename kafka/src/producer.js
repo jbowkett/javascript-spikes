@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const { CompressionTypes } = require('kafkajs');
 
 const kafka = new Kafka({
-    clientId: 'my-app',
+    clientId: 'order-producer',
     brokers: ['localhost:9092']
 })
 
@@ -39,9 +39,9 @@ async function writeOrder(producer) {
 
     //todo: I don't like the lack of a versioned schema in the messages being sent here:
     await producer.send({
-        topic: 'test-topic',
+        topic: 'orders',
         acks: ACKS_ALL,
-        compression: CompressionTypes.GZIP, //snappy is not supported currently
+        compression: CompressionTypes.GZIP, //todo: snappy is not supported currently
         messages: [
             {   key: order.orderId,
                 value: JSON.stringify(order)},
@@ -61,7 +61,7 @@ async function openConnection() {
     const producer = kafka.producer(
         {
             idempotent: true
-            // maxInFlightRequests: MAX_SAFE_INTEGER // in most - if not all - cases in TheBox, we won't worry about
+            // maxInFlightRequests: MAX_SAFE_INTEGER // todo: in most - if not all - cases in TheBox, we won't worry about
             // in-flight requests, as ordering of Orders is likely to be unimportant
         }
     )
