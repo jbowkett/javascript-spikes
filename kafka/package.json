@@ -6,6 +6,7 @@
     "uuid": "^8.2.0"
   },
   "scripts": {
-    "producer": "node src/producer.js"
+    "producer": "node src/producer.js",
+    "simple-consumer": "node src/SimpleConsumer.js"
   }
 }
